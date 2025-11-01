@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý Bang Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #00d9ff;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background-color: #00d9ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00b3cc;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .item {
+      background: #1c1c1c;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00d9ff40;
+    }
+    .item img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛠️ Trang Quản Lý Bang Shop</h1>
+  <p>Thêm ảnh sản phẩm (chỉ bạn biết link này)</p>
+
+  <input type="text" id="imgLink" placeholder="Dán link ảnh vào đây">
+  <button onclick="addImage()">Thêm ảnh</button>
+
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    const gallery = document.getElementById("gallery");
+
+    function addImage() {
+      const link = document.getElementById("imgLink").value.trim();
+      if (!link) {
+        alert("Vui lòng nhập link ảnh!");
+        return;
+      }
+
+      const item = document.createElement("div");
+      item.className = "item";
+      item.innerHTML = `<img src="${link}" alt="Sản phẩm">`;
+      gallery.appendChild(item);
+
+      document.getElementById("imgLink").value = "";
+    }
+  </script>
+</body>
+</html>
