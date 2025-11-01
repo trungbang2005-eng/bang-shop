@@ -5,101 +5,158 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bang Shop</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
-      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #0d0d0d;
-      color: white;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
+      color: #fff;
+      text-align: center;
     }
     header {
-      background: linear-gradient(90deg, #000, #1a1a1a);
-      text-align: center;
-      padding: 25px 0;
-      font-size: 30px;
-      font-weight: 600;
+      background: linear-gradient(90deg, #111, #1c1c1c);
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
       letter-spacing: 2px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      box-shadow: 0 0 10px #00d9ff40;
+      position: relative;
     }
-    .brands {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      padding: 60px 20px;
+    .settings-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #00d9ff;
+      font-size: 24px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    .brand-card {
+    .settings-btn:hover {
+      color: #00ffff;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 40px;
+    }
+    .item {
       background: #111;
-      border-radius: 15px;
+      border-radius: 16px;
       overflow: hidden;
-      width: 280px;
+      box-shadow: 0 0 20px #00d9ff20;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 10px rgba(255,255,255,0.05);
     }
-    .brand-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 25px rgba(255,255,255,0.15);
+    .item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 25px #00d9ff60;
     }
-    .brand-card img {
+    .item img {
       width: 100%;
-      height: 280px;
-      object-fit: cover;
-    }
-    .brand-name {
-      text-align: center;
-      padding: 15px;
-      font-weight: 600;
-      font-size: 18px;
-      letter-spacing: 1px;
+      display: block;
+      border-radius: 16px;
     }
     footer {
-      text-align: center;
-      padding: 25px;
+      background: #111;
+      padding: 20px;
+      color: #999;
       font-size: 14px;
-      color: #888;
-      background: #000;
-      border-top: 1px solid #222;
+    }
+
+    /* Khung quản lý */
+    .admin-panel {
+      display: none;
+      background: #000000cc;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      backdrop-filter: blur(8px);
+      color: white;
+      padding: 50px;
+      box-sizing: border-box;
+    }
+    .admin-panel input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 60%;
+    }
+    .admin-panel button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #00d9ff;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .admin-panel button:hover {
+      background: #00b3cc;
     }
   </style>
 </head>
 <body>
-  <header>Bang Shop – Luxury Streetwear</header>
+  <header>
+    🖤 Bang Shop
+    <button class="settings-btn" onclick="toggleAdmin()">⚙️</button>
+  </header>
 
-  <section class="brands">
-    <div class="brand-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Gucci_Logo.svg" alt="Gucci logo">
-      <div class="brand-name">GUCCI</div>
+  <div class="gallery" id="gallery"></div>
+
+  <footer>© 2025 Bang Shop — All rights reserved</footer>
+
+  <!-- Trang quản lý ẩn -->
+  <div class="admin-panel" id="admin">
+    <h2>Quản lý ảnh sản phẩm</h2>
+    <input type="password" id="pass" placeholder="Nhập mật khẩu để truy cập">
+    <button onclick="checkPass()">Đăng nhập</button>
+    <div id="panel" style="display:none;">
+      <input type="text" id="imgLink" placeholder="Dán link ảnh sản phẩm">
+      <button onclick="addImage()">Thêm ảnh</button>
+      <button onclick="closeAdmin()">Đóng</button>
     </div>
+  </div>
 
-    <div class="brand-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Dior_Logo.svg" alt="Dior logo">
-      <div class="brand-name">DIOR</div>
-    </div>
+  <script>
+    const gallery = document.getElementById("gallery");
+    const admin = document.getElementById("admin");
+    const panel = document.getElementById("panel");
+    const pass = document.getElementById("pass");
+    const password = "bangvip"; // 🔒 Mật khẩu bạn có thể đổi
 
-    <div class="brand-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Louis_Vuitton_logo_and_wordmark.svg" alt="Louis Vuitton logo">
-      <div class="brand-name">LOUIS VUITTON</div>
-    </div>
-
-    <div class="brand-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Burberry_Logo_2018.svg" alt="Burberry logo">
-      <div class="brand-name">BURBERRY</div>
-    </div>
-
-    <div class="brand-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Ralph_Lauren_logo.svg" alt="Ralph Lauren logo">
-      <div class="brand-name">RALPH LAUREN</div>
-    </div>
-  </section>
-
-  <footer>© 2025 Bang Shop. All Rights Reserved.</footer>
+    function toggleAdmin() {
+      admin.style.display = "block";
+    }
+    function closeAdmin() {
+      admin.style.display = "none";
+      panel.style.display = "none";
+    }
+    function checkPass() {
+      if (pass.value === password) {
+        pass.style.display = "none";
+        panel.style.display = "block";
+      } else {
+        alert("Sai mật khẩu!");
+      }
+    }
+    function addImage() {
+      const link = document.getElementById("imgLink").value.trim();
+      if (!link) {
+        alert("Nhập link ảnh!");
+        return;
+      }
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `<img src="${link}" alt="Sản phẩm">`;
+      gallery.appendChild(div);
+      document.getElementById("imgLink").value = "";
+    }
+  </script>
 </body>
 </html>
+
 
 
