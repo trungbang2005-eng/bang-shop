@@ -1,24 +1,88 @@
-<!doctype html>
-<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bang Shop</title><link rel="stylesheet" href="styles.css"></head><body>
-<div class="fade-overlay" id="fade"></div>
-<header class="header"><div class="logo-bang"><img src="images/logos/bang-logo.svg" alt="Bang Shop"></div><div class="site-title">Bang Shop</div></header>
-<main class="main">
-<section class="grid-logos">
-  <a class="brand-card" href="gucci.html"><img src="images/logos/gucci.svg" alt=""><div class="brand-name">GUCCI</div></a>
-  <a class="brand-card" href="dior.html"><img src="images/logos/dior.svg" alt=""><div class="brand-name">DIOR</div></a>
-  <a class="brand-card" href="louis-vuitton.html"><img src="images/logos/louis-vuitton.svg" alt=""><div class="brand-name">LOUIS VUITTON</div></a>
-  <a class="brand-card" href="burberry.html"><img src="images/logos/burberry.svg" alt=""><div class="brand-name">BURBERRY</div></a>
-  <a class="brand-card" href="ralph-lauren.html"><img src="images/logos/ralph-lauren.svg" alt=""><div class="brand-name">RALPH LAUREN</div></a>
-  <a class="brand-card" href="polo.html"><img src="images/logos/polo.svg" alt=""><div class="brand-name">ÁO POLO</div></a>
-  <a class="brand-card" href="in.html"><img src="images/logos/in.svg" alt=""><div class="brand-name">ÁO IN</div></a>
-</section>
-<div style="margin-top:18px"><a class="brand-card" href="upload.html"><div class="brand-name">Quản lý / Tải ảnh lên</div></a></div>
-</main><footer class="footer">Bang Shop — Luxury Dark Edition</footer>
-<script>
-(function(){
-  var fade=document.getElementById('fade');
-  var click=new Audio('sounds/click.mp3');
-  var links=document.querySelectorAll('a.brand-card');
-  for(var i=0;i<links.length;i++){ (function(a){ a.addEventListener('click', function(e){ e.preventDefault(); try{ click.play(); }catch(err){} fade.classList.add('show'); setTimeout(function(){ location = a.href; }, 420); }); })(links[i]); }
-})();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bang Shop - Thời trang cao cấp</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    header {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 26px;
+      letter-spacing: 2px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .item {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+    img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    h3 {
+      margin: 10px 0 5px;
+      font-size: 20px;
+    }
+    p {
+      color: gray;
+    }
+    .price {
+      color: #d90429;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <header>Bang Shop - Thời Trang Nam Nữ</header>
+  <div class="container">
+    <div class="item">
+      <img src="https://i.imgur.com/8NQO1nR.jpg" alt="Áo Gucci">
+      <h3>Áo GUCCI</h3>
+      <p class="price">290.000₫</p>
+    </div>
+    <div class="item">
+      <img src="https://i.imgur.com/2J5vFZf.jpg" alt="Áo Dior">
+      <h3>Áo DIOR</h3>
+      <p class="price">310.000₫</p>
+    </div>
+    <div class="item">
+      <img src="https://i.imgur.com/jmXxRcd.jpg" alt="Áo Louis Vuitton">
+      <h3>Áo LOUIS VUITTON</h3>
+      <p class="price">300.000₫</p>
+    </div>
+    <div class="item">
+      <img src="https://i.imgur.com/aKyKLeU.jpg" alt="Áo Burberry">
+      <h3>Áo BURBERRY</h3>
+      <p class="price">280.000₫</p>
+    </div>
+  </div>
+</body>
+</html>
