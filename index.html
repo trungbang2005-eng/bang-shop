@@ -3,86 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bang Shop - Thời trang cao cấp</title>
+  <title>Bang Shop | Local Brand</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      color: #222;
+      background-color: #f5f5f5;
+      color: #333;
     }
+
     header {
-      background: black;
+      background-color: #000;
       color: white;
-      text-align: center;
       padding: 20px;
-      font-size: 26px;
-      letter-spacing: 2px;
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
     }
+
+    nav {
+      background-color: #222;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      display: block;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #444;
+    }
+
     .container {
+      max-width: 1100px;
+      margin: 30px auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      padding: 40px;
-      max-width: 1200px;
-      margin: auto;
+      gap: 20px;
+      padding: 0 20px;
     }
-    .item {
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      text-align: center;
-      padding: 20px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-    }
-    img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
+
+    .product {
+      background-color: white;
       border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
     }
-    h3 {
-      margin: 10px 0 5px;
-      font-size: 20px;
+
+    .product:hover {
+      transform: scale(1.03);
     }
-    p {
-      color: gray;
+
+    .product img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
     }
+
+    .product-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .product-info h3 {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
     .price {
-      color: #d90429;
+      color: #e91e63;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+      background: #25d366;
+      padding: 8px 14px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .social-links a.fb {
+      background: #1877f2;
+    }
+
+    .social-links a:hover {
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <header>Bang Shop - Thời Trang Nam Nữ</header>
+  <header>🛍️ BANG SHOP | LOCAL BRAND</header>
+
+  <nav>
+    <a href="#">Áo Nam</a>
+    <a href="#">Áo Nữ</a>
+    <a href="#">Local Brand</a>
+    <a href="#">Sale</a>
+  </nav>
+
   <div class="container">
-    <div class="item">
-      <img src="https://i.imgur.com/8NQO1nR.jpg" alt="Áo Gucci">
-      <h3>Áo GUCCI</h3>
-      <p class="price">290.000₫</p>
+    <div class="product">
+      <img src="https://i.imgur.com/y3E0c3f.jpeg" alt="Gucci">
+      <div class="product-info">
+        <h3>Áo GUCCI</h3>
+        <p class="price">320.000₫</p>
+      </div>
     </div>
-    <div class="item">
-      <img src="https://i.imgur.com/2J5vFZf.jpg" alt="Áo Dior">
-      <h3>Áo DIOR</h3>
-      <p class="price">310.000₫</p>
+
+    <div class="product">
+      <img src="https://i.imgur.com/JHKU0tO.jpeg" alt="Dior">
+      <div class="product-info">
+        <h3>Áo DIOR</h3>
+        <p class="price">280.000₫</p>
+      </div>
     </div>
-    <div class="item">
-      <img src="https://i.imgur.com/jmXxRcd.jpg" alt="Áo Louis Vuitton">
-      <h3>Áo LOUIS VUITTON</h3>
-      <p class="price">300.000₫</p>
+
+    <div class="product">
+      <img src="https://i.imgur.com/d4biJ8N.jpeg" alt="Louis Vuitton">
+      <div class="product-info">
+        <h3>Áo LOUIS VUITTON</h3>
+        <p class="price">300.000₫</p>
+      </div>
     </div>
-    <div class="item">
-      <img src="https://i.imgur.com/aKyKLeU.jpg" alt="Áo Burberry">
-      <h3>Áo BURBERRY</h3>
-      <p class="price">280.000₫</p>
+
+    <div class="product">
+      <img src="https://i.imgur.com/xjP3K3I.jpeg" alt="Burberry">
+      <div class="product-info">
+        <h3>Áo BURBERRY</h3>
+        <p class="price">290.000₫</p>
+      </div>
     </div>
   </div>
+
+  <footer>
+    <p>Liên hệ mua hàng</p>
+    <div class="social-links">
+      <a href="https://zalo.me/yourzalo" target="_blank">💬 Zalo</a>
+      <a href="https://facebook.com/yourfacebook" class="fb" target="_blank">📘 Facebook</a>
+    </div>
+    <p style="margin-top:10px; font-size: 0.9rem;">© 2025 Bang Shop | Designed by TrungBang</p>
+  </footer>
 </body>
 </html>
+
