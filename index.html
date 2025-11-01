@@ -11,7 +11,9 @@
       background-color: #0d0d0d;
       color: #fff;
       text-align: center;
+      overflow-x: hidden;
     }
+
     header {
       background: linear-gradient(90deg, #111, #1c1c1c);
       padding: 20px;
@@ -19,144 +21,103 @@
       font-weight: bold;
       letter-spacing: 2px;
       box-shadow: 0 0 10px #00d9ff40;
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    .settings-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: transparent;
-      border: none;
-      color: #00d9ff;
-      font-size: 24px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .settings-btn:hover {
-      color: #00ffff;
-    }
+
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 25px;
       padding: 40px;
+      animation: fadeIn 1s ease;
     }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
     .item {
       background: #111;
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 0 20px #00d9ff20;
+      box-shadow: 0 0 15px #00d9ff20;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .item:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       box-shadow: 0 0 25px #00d9ff60;
     }
+
     .item img {
       width: 100%;
-      display: block;
-      border-radius: 16px;
-    }
-    footer {
-      background: #111;
-      padding: 20px;
-      color: #999;
-      font-size: 14px;
+      height: 230px;
+      object-fit: cover;
+      border-bottom: 1px solid #222;
     }
 
-    /* Khung quản lý */
-    .admin-panel {
-      display: none;
-      background: #000000cc;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      backdrop-filter: blur(8px);
-      color: white;
-      padding: 50px;
-      box-sizing: border-box;
+    .name {
+      padding: 15px;
+      font-size: 16px;
+      color: #00d9ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
     }
-    .admin-panel input {
-      padding: 10px;
-      margin: 10px;
-      border-radius: 8px;
-      border: none;
-      width: 60%;
-    }
-    .admin-panel button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #00d9ff;
-      cursor: pointer;
-      color: #000;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .admin-panel button:hover {
-      background: #00b3cc;
+
+    footer {
+      background: #111;
+      padding: 15px;
+      color: #777;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <header>
-    🖤 Bang Shop
-    <button class="settings-btn" onclick="toggleAdmin()">⚙️</button>
-  </header>
+  <header>🖤 Bang Shop</header>
 
-  <div class="gallery" id="gallery"></div>
-
-  <footer>© 2025 Bang Shop — All rights reserved</footer>
-
-  <!-- Trang quản lý ẩn -->
-  <div class="admin-panel" id="admin">
-    <h2>Quản lý ảnh sản phẩm</h2>
-    <input type="password" id="pass" placeholder="Nhập mật khẩu để truy cập">
-    <button onclick="checkPass()">Đăng nhập</button>
-    <div id="panel" style="display:none;">
-      <input type="text" id="imgLink" placeholder="Dán link ảnh sản phẩm">
-      <button onclick="addImage()">Thêm ảnh</button>
-      <button onclick="closeAdmin()">Đóng</button>
+  <div class="gallery">
+    <div class="item">
+      <img src="https://1000logos.net/wp-content/uploads/2017/02/Gucci-Logo.png" alt="Gucci">
+      <div class="name">Áo Gucci</div>
+    </div>
+    <div class="item">
+      <img src="https://1000logos.net/wp-content/uploads/2017/03/Dior-logo.png" alt="Dior">
+      <div class="name">Áo Dior</div>
+    </div>
+    <div class="item">
+      <img src="https://1000logos.net/wp-content/uploads/2017/02/Louis-Vuitton-Logo.png" alt="LV">
+      <div class="name">Áo Louis Vuitton</div>
+    </div>
+    <div class="item">
+      <img src="https://1000logos.net/wp-content/uploads/2017/06/Burberry-logo.png" alt="Burberry">
+      <div class="name">Áo Burberry</div>
+    </div>
+    <div class="item">
+      <img src="https://1000logos.net/wp-content/uploads/2021/08/Ralph-Lauren-Logo.png" alt="Ralph Lauren">
+      <div class="name">Áo Ralph Lauren</div>
+    </div>
+    <div class="item">
+      <img src="https://i.imgur.com/bw0qXgh.png" alt="Polo">
+      <div class="name">Áo Polo</div>
+    </div>
+    <div class="item">
+      <img src="https://i.imgur.com/dkUimkF.png" alt="In">
+      <div class="name">Áo In</div>
+    </div>
+    <div class="item">
+      <img src="https://i.imgur.com/jPByZVW.png" alt="Short">
+      <div class="name">Quần Short</div>
     </div>
   </div>
 
-  <script>
-    const gallery = document.getElementById("gallery");
-    const admin = document.getElementById("admin");
-    const panel = document.getElementById("panel");
-    const pass = document.getElementById("pass");
-    const password = "bangvip"; // 🔒 Mật khẩu bạn có thể đổi
-
-    function toggleAdmin() {
-      admin.style.display = "block";
-    }
-    function closeAdmin() {
-      admin.style.display = "none";
-      panel.style.display = "none";
-    }
-    function checkPass() {
-      if (pass.value === password) {
-        pass.style.display = "none";
-        panel.style.display = "block";
-      } else {
-        alert("Sai mật khẩu!");
-      }
-    }
-    function addImage() {
-      const link = document.getElementById("imgLink").value.trim();
-      if (!link) {
-        alert("Nhập link ảnh!");
-        return;
-      }
-      const div = document.createElement("div");
-      div.className = "item";
-      div.innerHTML = `<img src="${link}" alt="Sản phẩm">`;
-      gallery.appendChild(div);
-      document.getElementById("imgLink").value = "";
-    }
-  </script>
+  <footer>© 2025 Bang Shop — Tất cả sản phẩm độc quyền</footer>
 </body>
 </html>
+
 
 
 
