@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Dior — Bang Shop</title><link rel="stylesheet" href="styles.css"></head><body>
+<div class="fade-overlay" id="fade"></div>
+<header class="header"><div class="logo-bang"><img src="images/logos/bang-logo.svg" alt="Bang Shop"></div><a class="back" href="index.html">← Về trang chủ</a></header>
+<main class="main">
+  <div class="controls"><div class="muted">Dạng hiển thị: Cuộn ngang</div></div>
+  <div id="carousel" class="carousel"></div>
+  <p class="muted">Để thêm ảnh: vào trang "Quản lý / Tải ảnh lên"</p>
+</main><footer class="footer">Bang Shop — Dior</footer>
+<script>
+(function(){
+  var brand = "dior";
+  function load(){
+    fetch('images/'+brand+'/list.json').then(function(r){ if(!r.ok) throw new Error('no list'); return r.json(); }).then(function(list){
+      var c=document.getElementById('carousel');
+      if(!list.length){ c.innerHTML='<p class="empty">Chưa có ảnh. Upload ảnh vào images/'+brand+' và chạy cập nhật.</p>'; return; }
+      list.forEach(function(f){ var div=document.createElement('div'); div.className='slide'; var img=document.createElement('img'); img.src='images/'+brand+'/'+f; img.alt=f; div.appendChild(img); c.appendChild(div); });
+    }).catch(function(){ document.getElementById('carousel').innerHTML='<p class="empty">Không tìm thấy list.json</p>'; });
+  }
+  window.addEventListener('load', function(){ load(); document.getElementById('fade').classList.remove('show'); });
+})();
+</script></body></html>

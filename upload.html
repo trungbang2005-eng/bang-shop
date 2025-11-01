@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Upload ảnh — Bang Shop</title><link rel="stylesheet" href="styles.css"></head><body>
+<header class="header"><div class="logo-bang"><img src="images/logos/bang-logo.svg" alt="Bang Shop"></div><a class="back" href="index.html">← Về trang chủ</a></header>
+<main class="main">
+  <div class="uploader">
+    <h3>Upload ảnh trực tiếp lên GitHub</h3>
+    <div class="field"><label class="muted">GitHub owner (username)</label><input id="owner" style="width:100%"/></div>
+    <div class="field"><label class="muted">Repository name</label><input id="repo" style="width:100%" value="bang-shop"/></div>
+    <div class="field"><label class="muted">Branch</label><input id="branch" style="width:100%" value="main"/></div>
+    <div class="field"><label class="muted">Personal Access Token (PAT)</label><input id="token" type="password" style="width:100%"/></div>
+    <div class="field"><label class="muted">Chọn thương hiệu</label>
+      <select id="brand" style="width:100%"><option value="gucci">Gucci</option><option value="dior">Dior</option><option value="louis-vuitton">Louis Vuitton</option><option value="burberry">Burberry</option><option value="ralph-lauren">Ralph Lauren</option><option value="polo">Áo Polo</option><option value="in">Áo In</option></select>
+    </div>
+    <div class="field"><label class="muted">Chọn file ảnh (có thể chọn nhiều)</label><input id="files" type="file" multiple accept="image/*"/></div>
+    <div style="display:flex;gap:8px"><button id="uploadBtn">Upload</button><button id="saveCfg">Lưu cấu hình tạm</button></div>
+    <p class="muted">Lưu ý: PAT được lưu cục bộ trong trình duyệt (localStorage) nếu bạn chọn 'Lưu cấu hình tạm'. Không gửi PAT cho người khác.</p>
+    <pre id="log" style="white-space:pre-wrap;max-height:240px;overflow:auto"></pre>
+  </div>
+</main><footer class="footer">Bang Shop — Upload</footer>
+<script>
+function log(msg){var el=document.getElementById('log');el.textContent += msg + '\\n'; el.scrollTop = el.scrollHeight;}
+function saveCfg(){localStorage.setItem('bang_owner', document.getElementById('owner').value);localStorage.setItem('bang_repo', document.getElementById('repo').value);localStorage.setItem('bang_branch', document.getElementById('branch').value);localStorage.setItem('bang_token', document.getElementById('token').value);alert('Đã lưu cấu hình tạm (lưu trong trình duyệt)');}
+document.getElementById('saveCfg').addEventListener('click', saveCfg);
+window.addEventListener('load', function(){document.getElementById('owner').value = localStorage.getItem('bang_owner') || '';document.getElementById('repo').value = localStorage.getItem('bang_repo') || 'bang-shop';document.getElementById('branch').value = localStorage.getItem('bang_branch') || 'main';document.getElementById('token').value = localStorage.getItem('bang_token') || '';});
+async function getFileSha(owner, repo, path, token){var url='https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+encodeURIComponent(path);var res=await fetch(url,{headers:{Authorization:'token '+token}}); if(res.status===200){var j=await res.json(); return j.sha;} return null;}
+async function putFile(owner, repo, path, contentBase64, message, token, sha){var url='https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+encodeURIComponent(path);var body={message:message,content:contentBase64,branch:document.getElementById('branch').value}; if(sha) body.sha=sha; var res=await fetch(url,{method:'PUT',headers:{Authorization:'token '+token,'Content-Type':'application/json'},body:JSON.stringify(body)}); return res;}
+document.getElementById('uploadBtn').addEventListener('click', async function(){var owner=document.getElementById('owner').value.trim(); var repo=document.getElementById('repo').value.trim(); var token=document.getElementById('token').value.trim(); if(!owner||!repo||!token){alert('Vui lòng nhập owner, repo và token');return;} var brand=document.getElementById('brand').value; var files=document.getElementById('files').files; if(!files.length){alert('Chọn file ảnh để upload');return;} for(var i=0;i<files.length;i++){(function(file){var reader=new FileReader(); reader.onload = async function(){ try{ log('Đang xử lý: '+file.name); var path='images/'+brand+'/'+file.name; var base64 = reader.result.split(',')[1]; var existingSha = await getFileSha(owner,repo,path,token); var msg = existingSha? 'Cập nhật ảnh '+file.name : 'Thêm ảnh '+file.name; var r = await putFile(owner,repo,path,base64,msg,token,existingSha); if(r.status===201||r.status===200){ log('✅ Uploaded: '+file.name); } else { var t=await r.text(); log('❌ Lỗi upload '+file.name+': '+r.status+' '+t); } }catch(e){ log('❌ Lỗi đọc file: '+e.message); } }; reader.onerror=function(){ log('❌ Lỗi đọc file'); }; reader.readAsDataURL(file); })(files[i]); }
+  // update list.json
+  try{ var listPath='images/'+brand+'/list.json'; var listUrl='https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+encodeURIComponent(listPath); var resGet = await fetch(listUrl,{headers:{Authorization:'token '+token}}); var list=[]; var sha=null; if(resGet.status===200){ var j=await resGet.json(); sha=j.sha; list = JSON.parse(atob(j.content)); } var folderUrl='https://api.github.com/repos/'+owner+'/'+repo+'/contents/images/'+encodeURIComponent(brand); var fr=await fetch(folderUrl,{headers:{Authorization:'token '+token}}); if(fr.status===200){ var fj=await fr.json(); list = fj.filter(function(x){return x.type==='file' && x.name.toLowerCase()!=='list.json';}).map(function(x){return x.name}); } var putRes = await putFile(owner,repo,listPath,btoa(JSON.stringify(list,null,2)),'Cập nhật list.json for '+brand,token,sha); if(putRes.status===201||putRes.status===200){ log('✅ Cập nhật list.json thành công'); } else { log('❌ Lỗi cập nhật list.json: '+putRes.status); } }catch(e){ log('❌ Lỗi cập nhật list.json: '+e.message); }
+  alert('Hoàn tất upload. Hãy chờ GitHub Pages cập nhật (vài phút)'); location='index.html';
+});
+</script></body></html>

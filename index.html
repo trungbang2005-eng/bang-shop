@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bang Shop</title><link rel="stylesheet" href="styles.css"></head><body>
+<div class="fade-overlay" id="fade"></div>
+<header class="header"><div class="logo-bang"><img src="images/logos/bang-logo.svg" alt="Bang Shop"></div><div class="site-title">Bang Shop</div></header>
+<main class="main">
+<section class="grid-logos">
+  <a class="brand-card" href="gucci.html"><img src="images/logos/gucci.svg" alt=""><div class="brand-name">GUCCI</div></a>
+  <a class="brand-card" href="dior.html"><img src="images/logos/dior.svg" alt=""><div class="brand-name">DIOR</div></a>
+  <a class="brand-card" href="louis-vuitton.html"><img src="images/logos/louis-vuitton.svg" alt=""><div class="brand-name">LOUIS VUITTON</div></a>
+  <a class="brand-card" href="burberry.html"><img src="images/logos/burberry.svg" alt=""><div class="brand-name">BURBERRY</div></a>
+  <a class="brand-card" href="ralph-lauren.html"><img src="images/logos/ralph-lauren.svg" alt=""><div class="brand-name">RALPH LAUREN</div></a>
+  <a class="brand-card" href="polo.html"><img src="images/logos/polo.svg" alt=""><div class="brand-name">ÁO POLO</div></a>
+  <a class="brand-card" href="in.html"><img src="images/logos/in.svg" alt=""><div class="brand-name">ÁO IN</div></a>
+</section>
+<div style="margin-top:18px"><a class="brand-card" href="upload.html"><div class="brand-name">Quản lý / Tải ảnh lên</div></a></div>
+</main><footer class="footer">Bang Shop — Luxury Dark Edition</footer>
+<script>
+(function(){
+  var fade=document.getElementById('fade');
+  var click=new Audio('sounds/click.mp3');
+  var links=document.querySelectorAll('a.brand-card');
+  for(var i=0;i<links.length;i++){ (function(a){ a.addEventListener('click', function(e){ e.preventDefault(); try{ click.play(); }catch(err){} fade.classList.add('show'); setTimeout(function(){ location = a.href; }, 420); }); })(links[i]); }
+})();
+</script></body></html>
